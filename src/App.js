@@ -21,31 +21,25 @@ class App extends React.Component {
       country: "Ukraine"
     }
   }
-   
-  
+
   changCountry = () => {
-    this.setState({country: "Ukraine is the best country"},()=>{})}
+    this.setState({ country: this.state.country === "Ukraine is the best country" ? "Ukraine" : "Ukraine is the best country" })
+  }
 
-   
-
-  render(){
+  render() {
     return (
       <>
-       
         <div className="App">
           <button onClick={this.changCountry}>click</button>
-          </div>
-        
+        </div>
+
         <Example
           subject={this.state.country}
-          
         />
-        
       </>
-      
     )
   }
-  
+
 }
 
 export default App;
