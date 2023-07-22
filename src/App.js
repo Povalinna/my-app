@@ -11,7 +11,6 @@ class App extends Component {
          posts: [],
          body: ``,
          data: [],
-
       };
    }
 
@@ -19,19 +18,16 @@ class App extends Component {
       e.preventDefault();
    }
    handleChange = (event) => {
-
       this.setState({ value: event.target.value });
       const id = event.target.value;
       let link = "https://jsonplaceholder.typicode.com/posts?_limit=" + JSON.parse(id);
-      // let link="https://jsonplaceholder.typicode.com/" +JSON.parse(posts) ;
+      
       console.log(link)
       fetch(link)
          .then((response) => response.json())
          .then((data) => {
             console.log(data);
             this.setState({ data: data });
-            this.setState({ posts: [data, ...this.state.posts] });
-
             this.setState({ title: data.title });
             this.setState({ body: data.body });
             this.setState({ id: data.id })
@@ -59,17 +55,15 @@ class App extends Component {
 
 
    handleEdit = (e) => {
-      e.preventDefault();
-      this.setState({ values: e.target.values });
-      const body = JSON.stringify(e.target.valuess);
-      console.log(body);
-      return body;
+     this.setState({values:e.target.innerText});
+     let body=e.target.innerText;
+     this.setState({body:this.state.body})
+     console.log(body);
+     
    }
-   handleEditClick(id, body) {
-      this.setState(this.state.data.splice(id, 1, (body)));
-   }
-
-   render() {
+  
+      
+  render() {
       const { data } = this.state;
       const { title, posts, body, id } = this.state;
 
@@ -79,28 +73,22 @@ class App extends Component {
             <form onSubmit={this.handleSubmit}>
                <p>input the amount of posts</p>
 
-               <input type="text" value={this.state.value} onChange={this.handleChange} />
+               <input type="text" className='numberPost' value={this.state.value} onChange={this.handleChange} />
                <button type="submit" value="Submit" >submit</button>
                <button values={this.state.values} onClick={this.handleButtonClear}>reset</button>
             </form>
             <div>
-               {posts.length > 0 && (
-                  <ul>
-                     {data.map(data => (
-                        <li key={data.id}>{data.body};{data.id}
+               <ul>
+                     {this.state.data.map(item => (
+                        <li key={item.id} contentEditable onBlur={this.handleEdit}>{item.body};{item.id}
                            <br></br>
-                           <input valuess={this.state.valuess} onChangeCapture={this.handleEdit} />
-                           <button id={data.id} onClickCapture={() => this.handleEditClick(id)}>edit</button>
-
-
+                           <button >edit</button>
                         </li>
-
-
-                     ))}
+                            ))}
                   </ul>
-               )}
+               
                <div>
-                  <p>If want to delete the post - input id of the post</p>
+                  <p>If you want to delete the post - input id of the post</p>
                   <input values={this.state.values} onChangeCapture={this.handleDelete} />
                   <button  >delete</button>
 
