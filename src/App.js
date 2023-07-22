@@ -26,14 +26,14 @@ class App extends Component {
       fetch(link)
          .then((response) => response.json())
          .then((data) => {
-            console.log(data);
+          
             this.setState({ data: data });
             this.setState({ title: data.title });
             this.setState({ body: data.body });
             this.setState({ id: data.id })
          })
          .catch((err) => {
-            console.log(err.message);
+            alert(err);
          });
 
    };
@@ -48,9 +48,9 @@ class App extends Component {
       e.preventDefault();
       this.setState({ values: e.target.values });
       const id = e.target.value;
-      console.log(id);
+      
       this.setState(this.state.data.splice((id - 1), 1));
-      console.log(this.state.data)
+      
    }
 
 
