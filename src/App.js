@@ -21,7 +21,7 @@ class App extends Component {
       this.setState({ value: event.target.value });
       const id = event.target.value;
       let link = "https://jsonplaceholder.typicode.com/posts?_limit=" + JSON.parse(id);
-      
+
       console.log(link)
       fetch(link)
          .then((response) => response.json())
@@ -55,15 +55,11 @@ class App extends Component {
 
 
    handleEdit = (e) => {
-     this.setState({values:e.target.innerText});
-     let body=e.target.innerText;
-     this.setState({body:this.state.body})
-     console.log(body);
-     
+      this.setState({ values: e.target.innerText });
    }
-  
-      
-  render() {
+
+
+   render() {
       const { data } = this.state;
       const { title, posts, body, id } = this.state;
 
@@ -79,14 +75,14 @@ class App extends Component {
             </form>
             <div>
                <ul>
-                     {this.state.data.map(item => (
-                        <li key={item.id} contentEditable onBlur={this.handleEdit}>{item.body};{item.id}
-                           <br></br>
-                           <button >edit</button>
-                        </li>
-                            ))}
-                  </ul>
-               
+                  {this.state.data.map(item => (
+                     <li key={item.id} contentEditable onBlur={this.handleEdit}>{item.body};{item.id}
+                        <br></br>
+                        <button >edit</button>
+                     </li>
+                  ))}
+               </ul>
+
                <div>
                   <p>If you want to delete the post - input id of the post</p>
                   <input values={this.state.values} onChangeCapture={this.handleDelete} />
@@ -94,6 +90,7 @@ class App extends Component {
 
                </div>
             </div>
+
          </div>
       )
    }
